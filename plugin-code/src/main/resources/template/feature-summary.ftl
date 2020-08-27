@@ -56,17 +56,17 @@ preheadlineLink="">
                 <thead>
                 <tr>
                     <th>Feature</th>
-                    <th>Total</th>
-                    <th><@common.status status="passed"/></th>
-                    <th><@common.status status="failed"/></th>
-                    <th><@common.status status="skipped"/></th>
+                    <th class="text-right">Total</th>
+                    <th class="text-right">Passed</th>
+                    <th class="text-right">Failed</th>
+                    <th class="text-right">Skipped</th>
                 </tr>
                 </thead>
                 <tbody>
                 <#list featureResultCounts as feature, featureResultCount>
                     <tr>
                         <td class="text-left"><a
-                                    href="pages/feature-scenarios/feature_${feature.index?c}.html">${feature.name}</a>
+                                    href="pages/feature-scenarios/feature_${feature.index?c}.html">${feature.description}</a>
                         </td>
                         <td class="text-right"><strong>${featureResultCount.total}</strong></td>
                         <td class="text-right">${featureResultCount.passed}</td>

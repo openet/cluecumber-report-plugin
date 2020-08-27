@@ -71,8 +71,8 @@ limitations under the License.
                                 </#if>
                                 <th class="text-left">Feature</th>
                                 <th class="text-left">Scenario</th>
-                                <th>Started</th>
-                                <th>Duration</th>
+                                <th>Passed</th>
+                                <th>Failed</th>
                                 <#if allRequested>
                                     <th class="text-left">Status</th>
                                 </#if>
@@ -82,9 +82,8 @@ limitations under the License.
                             <#list reports as report>
                                 <#assign tooltipText = "">
                                 <#if report.description?has_content>
-                                    <#assign tooltipText = "${report.description} | ">
+                                    <#assign tooltipText = "${report.description} | ${report.uri}">
                                 </#if>
-                                <#assign tooltipText = "${tooltipText}${report.uri}">
 
                                 <#list report.elements as element>
                                     <#if (skippedRequested && element.skipped) || (failedRequested && element.failed) || (passedRequested && element.passed) || allRequested>
@@ -94,19 +93,18 @@ limitations under the License.
                                             </#if>
                                             <td class="text-left">
                                                 <span data-toggle="tooltip" title="${tooltipText}">
-                                                    <a href="pages/feature-scenarios/feature_${report.featureIndex?c}.html">${report.name?html}</a>
+                                                    <a href="pages/feature-scenarios/feature_${report.featureIndex?c}.html">${report.description}</a>
                                                 </span>
                                             </td>
                                             <td class="text-left">
                                                 <a href="pages/scenario-detail/scenario_${element.scenarioIndex?c}.html"
                                                    style="word-break: break-all">${element.name?html}</a>
                                             </td>
-                                            <td class="text-center small" data-order="${element.startTimestamp}">
-                                                ${element.startDateString}<br>${element.startTimeString}
+                                            <td class="text-center small" >
+                                                <span class="nobr">${element.getTotalNumberOfPassedSteps()}</span>
                                             </td>
-                                            <td class="text-right small"
-                                                data-order="${element.totalDuration}">
-                                                <span class="nobr">${element.returnTotalDurationString()}</span>
+                                            <td class="text-right small">
+                                                <span class="nobr">${element.getTotalNumberOfFailedSteps()}</span>
                                             </td>
                                             <#if allRequested>
                                                 <td class="text-center"><@common.status status=element.status.statusString/></td>
